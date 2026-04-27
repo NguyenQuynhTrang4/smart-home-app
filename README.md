@@ -1,17 +1,27 @@
-# smart_home_app
+# Smart Home App (Flutter)
 
-A new Flutter project.
+Ứng dụng quản lý thiết bị trong nhà thông minh.
 
-## Getting Started
+## 🚀 Chức năng
 
-This project is a starting point for a Flutter application.
+- Bật/tắt thiết bị (Đèn, Quạt)
+- Lưu trạng thái bằng SharedPreferences
+- Lịch sử hoạt động
+- Dashboard thống kê thiết bị
+- Tìm kiếm thiết bị & phòng
+- Reset thiết bị theo phòng
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠 Công nghệ
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- Flutter
+- Dart
+- SharedPreferences
+- Git & GitHub
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📱 Demo
+
+(Thêm ảnh ở đây sau)
+
+## 👨‍💻 Tác giả
+
+NguyenQuynhTrang
