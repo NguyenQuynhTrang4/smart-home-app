@@ -1,27 +1,42 @@
-# Smart Home App (Flutter)
+# 🏠 Smart Home App (Flutter)
 
-Ứng dụng quản lý thiết bị trong nhà thông minh.
+Ứng dụng quản lý thiết bị nhà thông minh.
 
-## 🚀 Chức năng
+---
 
-- Bật/tắt thiết bị (Đèn, Quạt)
-- Lưu trạng thái bằng SharedPreferences
-- Lịch sử hoạt động
-- Dashboard thống kê thiết bị
-- Tìm kiếm thiết bị & phòng
-- Reset thiết bị theo phòng
+## 🚀 Features
 
-## 🛠 Công nghệ
+- 🔘 Bật/tắt thiết bị (Đèn, Quạt)
+- 💾 Lưu trạng thái bằng SharedPreferences
+- 📊 Dashboard thống kê theo phòng
+- 🔍 Tìm kiếm thiết bị & phòng
+- 📜 Lịch sử hoạt động
+- 🔄 Reset thiết bị theo phòng / toàn bộ
+
+---
+
+## 📱 Screenshots
+
+### Home
+![Home](assets/images/home.png)
+
+### Room
+![Room](assets/images/room.png)
+
+### History
+![History](assets/images/history.png)
+
+---
+
+## 🛠 Tech Stack
 
 - Flutter
 - Dart
 - SharedPreferences
 - Git & GitHub
 
-## 📱 Demo
+---
 
-(Thêm ảnh ở đây sau)
-
-## 👨‍💻 Tác giả
+## 👨‍💻 Author
 
 NguyenQuynhTrang
