@@ -18,13 +18,13 @@
 ## 📱 Screenshots
 
 ### Home
-![Home](assets/images/home.png)
+![Home](assets/images/home.jpg)
 
 ### Room
-![Room](assets/images/room.png)
+![Room](assets/images/room.jpg)
 
 ### History
-![History](assets/images/history.png)
+![History](assets/images/history.jpg)
 
 ---
 
