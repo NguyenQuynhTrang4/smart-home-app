@@ -1,9 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
 import 'models/device_model.dart';
 import 'pages/room_detail_page.dart';
-import 'services/fake_api_service.dart';
+import 'services/firebase_realtime_service.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 🔥 Khởi tạo Firebase
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -30,7 +37,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final FakeApiService apiService = FakeApiService();
+  final FirebaseRealtimeService apiService = FirebaseRealtimeService();
 
   final List<String> rooms = [
     'Phòng khách',
@@ -53,16 +60,31 @@ class _HomePageState extends State<HomePage> {
       isLoading = true;
     });
 
-    final result = await apiService.getAllDevices();
+    try {
+      final result = await apiService.getAllDevices();
 
-    if (!mounted) return;
+      if (!mounted) return;
 
-    setState(() {
-      allDevices = result;
-      isLoading = false;
-    });
+      setState(() {
+        allDevices = result;
+        isLoading = false;
+      });
+    } catch (e) {
+      if (!mounted) return;
+
+      setState(() {
+        isLoading = false;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Lỗi tải dữ liệu Firebase: $e'),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
   }
-
   List<String> get filteredRooms {
     return rooms
         .where((room) => room.toLowerCase().contains(searchText.toLowerCase()))
@@ -110,6 +132,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Stack(
         children: [
+          // 🔥 nền icon nhà
           Center(
             child: Icon(
               Icons.home,
@@ -117,6 +140,7 @@ class _HomePageState extends State<HomePage> {
               color: Theme.of(context).colorScheme.primary.withOpacity(0.06),
             ),
           ),
+
           isLoading
               ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
@@ -124,6 +148,7 @@ class _HomePageState extends State<HomePage> {
                   child: ListView(
                     padding: const EdgeInsets.all(16),
                     children: [
+                      // 🔍 search
                       TextField(
                         decoration: const InputDecoration(
                           hintText: 'Tìm phòng...',
@@ -137,6 +162,8 @@ class _HomePageState extends State<HomePage> {
                         },
                       ),
                       const SizedBox(height: 16),
+
+                      // 📦 danh sách phòng
                       ...filteredRooms.map((room) {
                         return roomCard(context, room);
                       }).toList(),

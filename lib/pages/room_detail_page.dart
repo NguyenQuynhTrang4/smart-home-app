@@ -1,6 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../models/device_model.dart';
-import '../services/fake_api_service.dart';
+import '../services/firebase_realtime_service.dart';
 import 'activity_history_page.dart';
 
 class RoomDetailPage extends StatefulWidget {
@@ -13,36 +15,67 @@ class RoomDetailPage extends StatefulWidget {
 }
 
 class _RoomDetailPageState extends State<RoomDetailPage> {
-  final FakeApiService apiService = FakeApiService();
+  final FirebaseRealtimeService apiService = FirebaseRealtimeService();
 
   List<DeviceModel> devices = [];
   bool isLoading = true;
   Set<String> loadingDevices = {};
   String searchText = "";
 
+  StreamSubscription<List<DeviceModel>>? devicesSubscription;
+
   @override
   void initState() {
     super.initState();
-    loadDevices();
+    listenDevices();
   }
 
-  Future<void> loadDevices() async {
+  @override
+  void dispose() {
+    devicesSubscription?.cancel();
+    super.dispose();
+  }
+
+  void listenDevices() {
     setState(() {
       isLoading = true;
     });
 
+    devicesSubscription =
+        apiService.watchDevicesByRoom(widget.roomName).listen(
+      (result) {
+        if (!mounted) return;
+
+        setState(() {
+          devices = result;
+          isLoading = false;
+        });
+      },
+      onError: (error) {
+        if (!mounted) return;
+
+        setState(() {
+          isLoading = false;
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Lỗi realtime Firebase: $error'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> refreshDevices() async {
     final result = await apiService.getDevicesByRoom(widget.roomName);
 
     if (!mounted) return;
 
     setState(() {
       devices = result;
-      isLoading = false;
     });
-  }
-
-  Future<void> refreshDevices() async {
-    await loadDevices();
   }
 
   Future<void> toggleDevice(DeviceModel device, bool value) async {
@@ -99,6 +132,19 @@ class _RoomDetailPageState extends State<RoomDetailPage> {
         .toList();
   }
 
+  Future<void> resetCurrentRoom() async {
+    await apiService.resetDevicesByRoom(widget.roomName);
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Đã reset thiết bị trong phòng này'),
+        duration: Duration(seconds: 1),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,19 +164,7 @@ class _RoomDetailPageState extends State<RoomDetailPage> {
           ),
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () async {
-              await apiService.resetAll();
-              await loadDevices();
-
-              if (!mounted) return;
-
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Đã reset thiết bị'),
-                  duration: Duration(seconds: 1),
-                ),
-              );
-            },
+            onPressed: resetCurrentRoom,
           ),
         ],
       ),

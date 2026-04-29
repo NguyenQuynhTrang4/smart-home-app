@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../services/fake_api_service.dart';
+import '../services/firebase_realtime_service.dart';
 
 class ActivityHistoryPage extends StatefulWidget {
   const ActivityHistoryPage({super.key});
@@ -9,7 +9,7 @@ class ActivityHistoryPage extends StatefulWidget {
 }
 
 class _ActivityHistoryPageState extends State<ActivityHistoryPage> {
-  final FakeApiService apiService = FakeApiService();
+  final FirebaseRealtimeService apiService = FirebaseRealtimeService();
 
   List<String> logs = [];
 
