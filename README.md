@@ -1,13 +1,25 @@
 # 🏠 Smart Home App
 
-A Flutter mobile application for managing smart home devices by room, with Firebase Realtime Database integration.
+A Flutter mobile application for managing smart home devices by room, integrated with Firebase Realtime Database for real-time device state synchronization.
+
+---
+
+## 📌 Overview
+
+Smart Home App allows users to control smart devices such as lights and fans in different rooms.  
+The app supports real-time updates, activity history, room/device search, dashboard statistics, and Firebase cloud data synchronization.
+
+This project was built as a practical Flutter mobile app to demonstrate mobile UI development, Firebase integration, state management, and Git/GitHub workflow.
 
 ---
 
 ## 🚀 Features
 
-- 🔘 Control smart devices such as lights and fans
-- 🏠 Manage devices by room: Living Room, Bedroom, Kitchen
+- 🔘 Turn smart devices on/off
+- 🏠 Manage devices by room:
+  - Living Room
+  - Bedroom
+  - Kitchen
 - 🔄 Real-time device state synchronization with Firebase Realtime Database
 - 📊 Dashboard showing total devices and active devices by room
 - 🔍 Search rooms and devices
@@ -15,6 +27,13 @@ A Flutter mobile application for managing smart home devices by room, with Fireb
 - ♻️ Reset devices by room or reset all devices
 - 🌙 Supports system light/dark mode
 - 🔧 Git & GitHub version control
+- 📱 Runs on Android devices
+
+---
+
+## 🎥 Demo Video
+
+Watch demo video here: [Smart Home App Demo](https://www.youtube.com/watch?si=QYW2TgJS3N2DyW0B&v=nXXrJ43maxo&feature=youtu.be)
 
 ---
 
@@ -38,9 +57,11 @@ A Flutter mobile application for managing smart home devices by room, with Fireb
 
 - Flutter
 - Dart
-- Firebase Realtime Database
 - Firebase Core
-- Git & GitHub
+- Firebase Realtime Database
+- SharedPreferences
+- Git
+- GitHub
 
 ---
 
